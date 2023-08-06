@@ -7,6 +7,6 @@ from src.item import Item
 
 @pytest.fixture
 def test_item():
-    retirn Item('One', 2, 3)
+    return Item('One', 2, 3)
 
 

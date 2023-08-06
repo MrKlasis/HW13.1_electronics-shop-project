@@ -1,8 +1,8 @@
 import pytest
 
-from src.item import Item
-from src.phone import Phone
-from src.setting import CSV
+from src.item.parent import Item
+from src.phone.parent import Phone
+from src.setting.parent import CSV
 
 
 def test_init():

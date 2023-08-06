@@ -1,15 +1,11 @@
 import pytest
 
-from src.item.parent import Item
-
-def test_init(test_item):
-    assert test_item.name == 'One'
-    assert test_item.price == 2
-    test_item.price = 22
-    assert test_item.price == 22
-    assert isinstance(test_item.all[0], Item) == True
+from item import Item
 
 
+def test_init():
+    item1 = Item("Смартфон", 10000, 20)
+    assert item1.name == "Смартфон"
+    assert item1.price == 10000
+    assert item1.quantity == 20
 
-
-"""Здесь надо написать тесты с использованием pytest для модуля item."""
