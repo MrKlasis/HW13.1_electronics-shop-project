@@ -1,6 +1,6 @@
 import pytest
 
-from src.item import Item
+from src.item import Item, InstantiateCSVError
 from src.phone import Phone
 from src.setting import CSV
 
@@ -47,6 +47,30 @@ def test_instantiate_from_csv():
     Item.instantiate_from_csv(CSV)
     assert len(Item.all) == 5
 
+def test_instantiate_from_csv_file_not_found():
+    with pytest.raises(FileNotFoundError) as excinfo:
+        Item.instantiate_from_csv("nonexistent_file.csv")
+    assert str(excinfo.value) == "Отсутствует файл item.csv"
+
+
+def test_instantiate_from_csv_file_corrupted():
+    with pytest.raises(InstantiateCSVError) as excinfo:
+        Item.instantiate_from_csv("corrupted_file.csv")
+    assert str(excinfo.value) == "Файл item.csv поврежден"
+
+
+def test_instantiate_from_csv_valid_file():
+    Item.instantiate_from_csv("valid_file.csv")
+    assert len(Item.all) == 3
+    assert Item.all[0].name == "Item 1"
+    assert Item.all[0].price == 10.0
+    assert Item.all[0].quantity == 5
+    assert Item.all[1].name == "Item 2"
+    assert Item.all[1].price == 20.0
+    assert Item.all[1].quantity == 10
+    assert Item.all[2].name == "Item 3"
+    assert Item.all[2].price == 30.0
+    assert Item.all[2].quantity == 15
 
 def test_name():
     item = Item('Смартфон', 10000, 5)
